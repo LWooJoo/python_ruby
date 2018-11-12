@@ -1,29 +1,39 @@
-class Class1(object):
-    def method1(self): # Class1이 갖고 있는 능력
-        return 'c1m1' # 중복
+class Cal(object):
+    def __init__(self, v1, v2):
+        if isinstance(v1, int): #인스턴스 변수 v1
+            self.v1 = v1
+        if isinstance(v2, int): #인스턴스 변수 v2
+            self.v2 = v2
 
-c1 = Class1()
-print(c1, c1.method1())  # <__main__.Class1 object at 0xb757dfec> c1m1
+    def add(self): # 더하기
+        return self.v1+self.v2
 
-class Class3(Class1): # Class3가 Class1을 상속 한다.
-    #Class1의 기능인 def method1을 갖고 있다.c
-        def method2(self):
-            return 'c3m2'
+    def subtract(self): #빼기
+        return self.v1-self.v2
 
-c3 = Class3()
-print(c3, c3.method1()) # < __main__.Class3 object at 0xb758704c > c3m1
-print(c3, c3.method2()) # < __main__.Class3 object at 0xb758704c > c3m2
+    def setV1(self, v): #인스턴스 변수를 외부에서 변경 할 때
+        if isinstance(v, int):
+            self.v1 = v
 
-class Class2(object):
-    def method1(self): # 중복
-        return 'c2m1'
-    def method2(self):
-        return 'c2m2'
-
-c2 = Class2()
-print(c2, c2.method1()) # < __main__.Class2 object at 0xb758704c > c2m1
-print(c2, c2.method2()) # < __main__.Class2 object at 0xb758704c > c2m2
-    
+    def getV1(self): #인스턴스 변수를 외부에서 가져 올 때
+        return self.v1
 
 
-# 상속이란 중복을 제거하는 방법
+class CalMultiply(Cal): #CalMultiply에 Cal을 상속한다.
+    def multiply(self): #곱하기
+        return self.v1*self.v2
+
+
+class CalDivide(CalMultiply): #CalDivide에 Cal을 상속한다.
+    def divide(self): #나누기
+        return self.v1/self.v2
+
+
+c1 = CalMultiply(10, 10)
+print(c1.add()) #20
+print(c1.multiply()) #100
+
+c2 = CalDivide(20, 10)
+print(c2, c2.add())  # (<__main__.CalDivide object at 0x110156c10>, 30)
+print(c2, c2.multiply())  # (<__main__.CalDivide object at 0x110156c10>, 200)
+print(c2, c2.divide())  # (<__main__.CalDivide object at 0x110156c10>, 2)
